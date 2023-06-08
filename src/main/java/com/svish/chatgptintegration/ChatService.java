@@ -9,6 +9,7 @@ import com.svish.chatgptintegration.dto.CompletionsRequest;
 import com.svish.chatgptintegration.dto.ChatResponse;
 import com.svish.chatgptintegration.dto.MessageRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -52,7 +53,7 @@ public class ChatService {
                                                 Optional.ofNullable(
                                                         MDC.get(HttpHeaders.AUTHORIZATION)
                                                 ).orElse(apiKey)
-                                        ).filter(x -> !(x.isBlank() || x.isEmpty()))
+                                        ).filter(StringUtils :: isNotBlank)
                                         .orElseThrow(
                                                 () -> new RuntimeException(
                                                         "API key not provided. "

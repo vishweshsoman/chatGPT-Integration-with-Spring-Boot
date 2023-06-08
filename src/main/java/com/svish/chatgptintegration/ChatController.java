@@ -4,6 +4,7 @@ import com.svish.chatgptintegration.dto.ChatResponse;
 import com.svish.chatgptintegration.dto.MessageRequest;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class ChatController {
             ) {
 
         MDC.put(HttpHeaders.AUTHORIZATION,
-                Optional.ofNullable(authorization).filter(x -> !(x.isEmpty() || x.isBlank())).orElse(null));
+                Optional.ofNullable(authorization).filter(StringUtils :: isNotBlank).orElse(null));
         return service.sendCompletions(request);
 
     }
@@ -41,7 +42,7 @@ public class ChatController {
             ) {
 
         MDC.put(HttpHeaders.AUTHORIZATION,
-                Optional.ofNullable(authorization).filter(x -> !(x.isEmpty() || x.isBlank())).orElse(null));
+                Optional.ofNullable(authorization).filter(StringUtils :: isNotBlank).orElse(null));
         return service.sendChatCompletions(request);
 
     }
