@@ -1,7 +1,7 @@
 package com.svish.chatgptintegration;
 
-import com.svish.chatgptintegration.dto.ChatResponseDto;
-import com.svish.chatgptintegration.dto.MessageRequestDto;
+import com.svish.chatgptintegration.dto.ChatResponse;
+import com.svish.chatgptintegration.dto.MessageRequest;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
@@ -12,23 +12,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/chatGPT")
 @RequiredArgsConstructor
 public class ChatController {
 
     private final ChatService service;
 
-    @PostMapping("/send")
+    @PostMapping("/completions")
     @CrossOrigin
-    public ResponseEntity<ChatResponseDto> send(
+    public ResponseEntity<ChatResponse> sendCompletions(
             @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false)
             @Parameter(hidden = true) String authorization,
-            @RequestBody MessageRequestDto request
+            @RequestBody MessageRequest request
             ) {
 
         MDC.put(HttpHeaders.AUTHORIZATION,
-                Optional.of(authorization).filter(x -> !(x.isEmpty() || x.isBlank())).orElse(null));
-        return service.send(request);
+                Optional.ofNullable(authorization).filter(x -> !(x.isEmpty() || x.isBlank())).orElse(null));
+        return service.sendCompletions(request);
+
+    }
+
+    @PostMapping("/chatCompletion")
+    @CrossOrigin
+    public ResponseEntity<ChatResponse> sendChatCompletion(
+            @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false)
+            @Parameter(hidden = true) String authorization,
+            @RequestBody MessageRequest request
+            ) {
+
+        MDC.put(HttpHeaders.AUTHORIZATION,
+                Optional.ofNullable(authorization).filter(x -> !(x.isEmpty() || x.isBlank())).orElse(null));
+        return service.sendChatCompletions(request);
 
     }
 }

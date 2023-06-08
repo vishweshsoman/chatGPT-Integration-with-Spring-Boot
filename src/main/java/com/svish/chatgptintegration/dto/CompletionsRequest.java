@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChatRequestDto implements Serializable {
+public class CompletionsRequest implements Serializable {
 
     private String model;
 

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Data
-public class ChatResponseDto implements Serializable {
+public class ChatResponse implements Serializable {
 
     private String id;
 

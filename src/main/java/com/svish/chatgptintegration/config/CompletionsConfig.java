@@ -5,11 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "chatgpt")
+@ConfigurationProperties(prefix = "chatgpt.completions")
 @Data
-public class ChatGptIntegrationConfig {
-
-    private String accessToken;
+public class CompletionsConfig {
 
     private Integer maxToken;
 

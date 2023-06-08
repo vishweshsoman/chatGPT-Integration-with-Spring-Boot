@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class MessageRequestDto implements Serializable {
+public class MessageRequest implements Serializable {
 
     private String userMessage;
 
