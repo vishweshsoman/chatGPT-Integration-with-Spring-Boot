@@ -25,10 +25,10 @@ public class ChatController {
             @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false)
             @Parameter(hidden = true) String authorization,
             @RequestBody MessageRequest request
-            ) {
+    ) {
 
         MDC.put(HttpHeaders.AUTHORIZATION,
-                Optional.ofNullable(authorization).filter(StringUtils :: isNotBlank).orElse(null));
+                Optional.ofNullable(authorization).filter(StringUtils::isNotBlank).orElse(null));
         return service.sendCompletions(request);
 
     }
@@ -39,10 +39,10 @@ public class ChatController {
             @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false)
             @Parameter(hidden = true) String authorization,
             @RequestBody MessageRequest request
-            ) {
+    ) {
 
         MDC.put(HttpHeaders.AUTHORIZATION,
-                Optional.ofNullable(authorization).filter(StringUtils :: isNotBlank).orElse(null));
+                Optional.ofNullable(authorization).filter(StringUtils::isNotBlank).orElse(null));
         return service.sendChatCompletions(request);
 
     }

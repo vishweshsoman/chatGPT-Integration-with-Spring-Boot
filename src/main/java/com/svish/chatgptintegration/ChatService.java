@@ -8,6 +8,7 @@ import com.svish.chatgptintegration.dto.ChatCompletionRequest;
 import com.svish.chatgptintegration.dto.CompletionsRequest;
 import com.svish.chatgptintegration.dto.ChatResponse;
 import com.svish.chatgptintegration.dto.MessageRequest;
+import com.svish.chatgptintegration.exception.MissingAuthorizationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
@@ -53,12 +54,13 @@ public class ChatService {
                                                 Optional.ofNullable(
                                                         MDC.get(HttpHeaders.AUTHORIZATION)
                                                 ).orElse(apiKey)
-                                        ).filter(StringUtils :: isNotBlank)
+                                        ).filter(StringUtils::isNotBlank)
                                         .orElseThrow(
-                                                () -> new RuntimeException(
+                                                () -> new MissingAuthorizationException(
                                                         "API key not provided. "
                                                                 + "Please make sure that the API key was sent with the "
-                                                                + "request or is added in the application configuration."
+                                                                + "request or is added in the application configuration.",
+                                                        HttpStatus.UNAUTHORIZED
                                                 )
                                         )
                         )
