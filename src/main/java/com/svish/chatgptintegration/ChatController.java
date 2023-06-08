@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -45,5 +47,13 @@ public class ChatController {
                 Optional.ofNullable(authorization).filter(StringUtils::isNotBlank).orElse(null));
         return service.sendChatCompletions(request);
 
+    }
+
+    @DeleteMapping("/chatCompletion")
+    @CrossOrigin
+    public ResponseEntity<String> resetChat() {
+
+        service.messages.clear();
+        return new ResponseEntity<>("Conversation cleared.", HttpStatus.OK);
     }
 }
