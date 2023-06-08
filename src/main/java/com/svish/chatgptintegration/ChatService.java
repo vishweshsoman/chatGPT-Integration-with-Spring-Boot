@@ -40,7 +40,7 @@ public class ChatService {
     List<ChatCompletionMessage> messages = new ArrayList<>();
 
     @Value("${chatgpt.accessToken}")
-    private String apiKey;
+    String apiKey;
 
     public ResponseEntity<ChatResponse> sendCompletions(MessageRequest request) {
 
